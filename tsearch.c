@@ -16,6 +16,7 @@ char sstring[1025];  // search string (will add spaces and convert to lower case
 int compares=0;  // instrumentation
 int matches=0;
 int hashcalcs=0; 
+int falsematch=0;  // false positive count only for hash
 
 int printflag=0;  // options (print, start at 0 or 1, end at 1 or 2)
 int starthash=0;
@@ -142,7 +143,11 @@ int main(int argc, char *argv[])
 			  while (*p)
 			    {
 			      compares++;
-			      if (*p++!=*t++) break;
+			      if (*p++!=*t++)
+				{
+				  falsematch++;
+				  break;
+				}
 			    }
 			  if (*p=='\0')
 			    {
@@ -188,9 +193,9 @@ int main(int argc, char *argv[])
 	}
       fclose(in);
       // print instrumentation
-      printf("%s done (%d,%d,%d,%d)\n",hashmode?"Hashed":"Normal",matches,compares,hashcalcs,compares+hashcalcs);
+      printf("%s done (matches=%d,compares=%d,extra=%d,total=%d,false=%d)\n",hashmode?"Hashed":"Normal",matches,compares,hashcalcs,compares+hashcalcs,falsematch);
       hashmode++;  // next mode
-      compares=matches=hashcalcs=0;  // ready for next run
+      falsematch=compares=matches=hashcalcs=0;  // ready for next run
     }
   return 0;
 }

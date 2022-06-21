@@ -50,9 +50,9 @@ gcc -g -o tsearch tsearch.c
 
 Output
 ======
-Normal done (34737,4489678,0,4489678)
+Normal done (matches=34737,compares=4489678,extra=0,total=4489678,false=0)
 
-Hashed done (34737,3325996,6245928,9571924)
+Hashed done (matches=34737,compares=3325996,extra=6245928,total=9571924,false=32221)
 
 
 This output means that 34,737 matches were found by both algorithms (if this doesn't match, oh oh...)
@@ -60,7 +60,7 @@ This output means that 34,737 matches were found by both algorithms (if this doe
 There were 4,489,678 compares for the normal algorithm and 3,325,996 matches for the hashed algorithm.
 
 The hashed algorightm had an extra 6.2 million math operations (3.1 million adds and 3.1 millon subtracts) and the
-total is the last number.
+total is just the two numbers added together. The false count indicates how many times the hash found the wrong string
 
 NOTE
 ====
